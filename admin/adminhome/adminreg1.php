@@ -266,10 +266,11 @@ session_start();
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="report_complain.php" aria-expanded="false"><i class="mdi me-2 mdi-chart-bar"></i><span
                                     class="hide-menu">Report/Complaint</span></a></li>
+
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="analytics.php" aria-expanded="false"><i
-                                    class="mdi me-2 mdi-chart-line"></i><span class="hide-menu">Analytics</span></a>
-                        </li>
+                                href="Major_emergency.php" aria-expanded="false"><i class="mdi me-2 mdi-chart-bar"></i><span
+                                    class="hide-menu">Major Emergency</span></a></li>
+                       
                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" data-bs-toggle="modal" data-bs-target="#myModal1"
                                 href="#" aria-expanded="false"><i
                                     class="mdi me-2 mdi-format-text"></i><span class="hide-menu">Complaint Title</span></a>
@@ -336,244 +337,89 @@ session_start();
             <div class="Container-fluid">
             	
             		 
-           			<div class="container p-5 my-5 bg-white  border border-5 " >
-           				<div> 
-           					<h2 class="text-center">REGISTRATION FORM</h2>
-           				</div> 
-           				<div class="text-dark ">
-           					<h3>PERSONAL DATA:</h3>
-							<form action="process.php" method="POST" enctype="multipart/form-data">
+           			<div class="container p-5 my-5 bg-white  shadow" >
+    <div>
+        <h2 class="text-center">REGISTRATION FORM</h2>
+    </div>
+    <div class="text-dark ">
+        <form action="process.php" method="POST" enctype="multipart/form-data">
+            
+    <div class="mb-3 mt-3">
+        <label>Attached Image</label>
+        <input type="file" class="form-control" placeholder="Enter Date of birth" name="doc_file" required accept=".png, .gif, .jpeg, .jpg, .webp, .jfif ">
+  </div>
+  <div class="mb-3">
+        <label>Fullname</label>
+        <input type="text" class="form-control" placeholder="Enter your Full Name" name="fn" required>
+  </div>
 
-							  	<div class="row container-fluid mt-3">
-    								<div class="col-sm-4 p-3 text-dark" style="text-align:center;">
-    									<img id="pp" src="../img/avatar.webp " width="60%">
+  <div class="mb-3">
+       <label>Email</label>
+    <input type="email" class="form-control" placeholder="Enter your Email" name="email" required>
+  </div>
 
-	   										</br></br><label for="f"  ><u>SELECT PROFILE</u></label>
-	   										<input type="file" name="doc_type" onchange="Loadpp()" id="f" style="visibility:hidden;" required accept=".png, .gif, .jpeg, .jpg, .webp, .jfif ">
-	   									</div>
-	   										
-    										<div class="col-sm-4 p-3  text-dark">
-    											
-    											<div class="col">
-    												<label>Name</label>
-	        										<input type="text" class="form-control" placeholder="Enter name" name="name" required>
+  <div class="mb-3">
+    <label>Gender</label>
+       <div class="form-check">
+            <input type="radio" class="form-check-input" id="radio1" name="gender" value="" >Female
+            <label class="form-check-label" for="radio1"></label>
+            </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" id="radio2" name="gender" value="">Male
+            <label class="form-check-label" for="radio2"></label>
+        </div>
+  </div>
 
-	      										</div> </p>
-	      										<div class="col">
-	      											<label>Email</label>
-	        										<input type="email" class="form-control" placeholder="Enter Email" name="email" required>
-	        
-	      										</div></p>
-	      										<div class="col">
-	      											<label>address</label>
-	        										<input type="text" class="form-control" placeholder="Enter Address" name="address">
-	        
-	      										</div>
-	      									</div>
-    										<div class="col-sm-4 p-3  text-dark">
-    											<div class="col">
-    												<label>Phone number</label>
-	        										<input type="text" class="form-control" placeholder="Enter Phone number" name="phonenumber">
-	      										</div> </p>
-	      										
-	      										<div class="col">
-	      											<label>Date of birth</label>
-	        										<input type="Date" class="form-control" placeholder="Enter Date of birth" name="dob">
-	      										</div> </p>
-	      										<div class="col">
-	      											<label>Birth of Place</label>
-	        										<input type="text" class="form-control" placeholder="Enter Birth of Place" name="pob">
-	      										</div>
-	      									</div>
-	      									<div class="col-sm-4 p-3  text-dark">
-    											<div class="col">
-    												<label>Civil Status</label>
-	        										<input type="text" class="form-control" placeholder="Enter Civil Status" name="cilstatus">
-	      										</div> </p>
-	      										
-	      										<div class="col">
-	      											<label>Sex</label>
-	        										<div class="form-check">
- 														 <input type="radio" class="form-check-input" id="radio1" name="sex" value="" >Female
-  														<label class="form-check-label" for="radio1"></label>
-													</div>
-													<div class="form-check">
-  														<input type="radio" class="form-check-input" id="radio2" name="sex" value="">Male
-  														<label class="form-check-label" for="radio2"></label>
-													</div>
-													
-	      										</div>
-	      									</div>
-	      									<div class="col-sm-4 p-3  text-dark">
-    											<div class="col">
-    												<label>Citizenship</label>
-	        										<input type="text" class="form-control" placeholder="Enter Citizenship" name="citizenship">
-	      										</div> </p>
-	      										
-	      										<div class="col">
-	      											<label>Spouse</label>
-	        										<input type="text" class="form-control" placeholder="Enter Spouse" name="spouse"></p>
-	        										<input type="text" class="form-control" placeholder="Enter Occupation" name="spouseoccup">
-	      										</div> </p>
-	      										
-	      										
-	      									
-	      									</div>
-	      									<div class="col-sm-4 p-3  text-dark">
-    											
-	      										
-	      										<div class="col">
-	      											<label>Name of children</label>
-	        										<input type="text" class="form-control" placeholder="Enter Name of children" name="noc1"></p>
-	        										<input type="text" class="form-control" placeholder="Enter Name of children" name="noc2"></p>
-	        										<input type="text" class="form-control" placeholder="Enter Name of children" name="noc3">
-	      										</div> </p>
-	      										
-	      										
-	      									
-	      									</div>
+  <div class="mb-3">
+       <label>Birtdate</label>
+        <input type="Date" class="form-control" placeholder="Enter your Birtdate" name="birthdate">
+  </div>
 
-	      									<div class="col-sm-4 p-3  text-dark">
-    											
-	      										<div class="col">
-    												<label>Father's Name</label>
-	        										<input type="text" class="form-control" placeholder="Enter Father's Name" name="fathersname"></p>
-	        										<input type="text" class="form-control" placeholder="Enter Occupation" name="fatheroccup">
-	      										</div> 
-	      										
-	      										
-	      										
-	      									
-	      									</div>
-	      									<div class="col-sm-4 p-3  text-dark">
-    											
-	      										
-	      									
-	      										<div class="col">
-    												<label>Mother's Name </label>
-	        										<input type="text" class="form-control" placeholder="Enter Name Mother's Names" name="mothersname"></p>
-	        										<input type="text" class="form-control" placeholder="Enter Occupation" name="mothersoccup">
-	      										</div> 
-	      										
-	      									
-	      									</div>
-	      									<div class="col-sm-4 p-3  text-dark">
-    											
-	      										
-	      									<div class="col">
-	      											<label>Person to be contacted in case of emergency</label>
-	        										<input type="text" class="form-control" placeholder="Enter Name of person to be contacted" name="guardian"></p>
-	        										<input type="text" class="form-control" placeholder="Enter his/her address or Phone number" name="guardnum">
-	      										</div> 
-	      										
-	      									
-	      									</div>
-	      									<hr></hr>
-	      									<h3>EDUCATIONAL ATTAINMENT:</h3>
-	      									<div class="col-sm-4 p-3  text-dark">
-    											
-	      										
-	      										<div class="col">
-	      											<label>Elementary</label>
-	        										<input type="text" class="form-control" placeholder="Enter  Elementary" name="elementary"></p>
-	        										<label>Year Graduated</label>
-	        										<input type="text" class="form-control" placeholder="Enter Year Graduated" name="elementaryyg">
-	      										</div> </p>
+  <div class="mb-3">
+       <label>Address</label>
+       <input type="text" class="form-control" placeholder="Enter your Address " name="address">
+  </div>
 
-	      										<div class="col">
-	      											<label>High School</label>
-	        										<input type="text" class="form-control" placeholder="Enter highs School" name="highschool"></p>										      										
-	        									</div> 
-	        								</div>
+  <div class="mb-3">
+       <label>Contact Number</label>
+       <input type="text" class="form-control" placeholder="Enter your Contact Number" name="cn">
+  </div>
 
-	      									<div class="col-sm-4 p-3 text-dark">
-	      										<div class="col">
-	      											<label>Year Graduated</label>
-	        										<input type="text" class="form-control" placeholder="Enter Year Graduated" name="highschoolyg"></p>
-	        										<label>College</label>
-	        										<input type="text" class="form-control" placeholder="Enter College" name="college">
-	        										</p>
-	      										</div> </p>
-	      											
-	        										
-	      										<div class="col">
-	      											<label>Year Graduated</label>
-	        										<input type="text" class="form-control" placeholder="Enter Year Graduated" name="collegeyg">
-	      										</div></p>
-	      											
+   <div class="mb-3">
+       <label>Password</label>
+            <input id="myInput" type="password" class="form-control" placeholder="Enter Password" name="password" required 
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+            title="Must contain at least one number and one UPPERCASE 
+            and lowercase letter, and at least 8 or more characters.">
+            <input type="checkbox" onclick="myFunction()">Show Password
+            </p>
+  </div>
+  
 
-    									 </div>
-    									 <div class="col-sm-4 p-3 text-dark">
-	      										
-	        										
-	      										<div class="col">
-      											<label>Degree Recieved</label>
-	        										<input type="text" class="form-control" placeholder="Enter Degree Recieved" name="degreereceived">
-	        										</p>
-	        									</div></p>
-	        									<div class="col">
-	      											<label>Special skills</label>
-	        										<input type="text" class="form-control" placeholder="Enter Special Skills" name="specialskills">
-	        										</p>
-	        									</div>
 
-    									 </div><hr> </hr>
-    									 <h3>Work Status:</h3>
-    									 <div class="col-sm-4 p-3 text-dark">
-	      										
-	        										
-	      										<div class="col">
-      											<label for="sel1" class="form-label">Select one:</label>
-    													<select class="form-select" id="sel1" name="workstatus" required>
-    														<option></option>
-      														<option>Unemployed</option>
-      														<option>Employed</option>
-      														<option>Farmer</option>
-      														<option>Domestic helper</option>
-    													</select>
-	        									</div></p>
-	        									<div class="col">
-	      											<label>If not mentioned above please input in box</label>
-	        										<input type="text" class="form-control" placeholder="Enter your Work " name="workspecify">
-	        										</p>
-	        									</div>
 
-    									 </div>
-    									 <hr></hr>
-    									 <h3>Your accont is here:</h3>
 
-    									 <div class="col">
-    									 	<label>Email</label>
-	        										<input type="email" class="form-control" placeholder="Enter Email" name="validid" required>
-	        										</p>
-    									 </div></p>
-    									 <div class="col">
-    									 	<label>Password</label>
-	        								<input id="myInput" type="password" class="form-control" placeholder="Enter Password" name="password" required 
-	        								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-								               title="Must contain at least one number and one UPPERCASE 
-								                 and lowercase letter, and at least 8 or more characters.">
 
-								                 <input type="checkbox" onclick="myFunction()">Show Password
 
-								      			
-	        										</p>
-    									 </div>
-    									 <hr></hr>
-    									 <div class="text-center d-grid ">
-                    							<input type="submit" class="btn btn-info btn-block fa-lg text-white " value="REGISTRATION" name="reg">
-                    						</p>
-                    						
-    
-  								</div>	
-	  						</form>
-								  </div>
-							</div>
-						</div>
-			
-           
-                
-                
+  
+
+
+
+
+            
+                <hr>
+                    </hr>
+                    <div class="col text-center d-grid pt-3 ">
+                        <input type="submit" class="btn btn-info btn-block fa-lg text-white " value="REGISTRATION" name="reg">
+                        </p>
+                    </div>
+        </form>
+        </div>
+        </div>
+    </div>
+
+
+
             								
     	
             

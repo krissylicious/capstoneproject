@@ -7,44 +7,19 @@ session_start();
 if (isset($_POST['reg'])){
 
 	
-	$name = $_POST['name'];
+	$fn = $_POST['fn'];
 	$email = $_POST['email'];
+	$gender = $_POST['gender'];
+	$birthdate = $_POST['birthdate'];
 	$address = $_POST['address'];
-	$phonenumber = $_POST['phonenumber'];
-	$date_of_birth = $_POST['dob'];
-	$place_of_birth = $_POST['pob'];
-	$cilstatus = $_POST['cilstatus'];
-	$religion = $_POST['religion'];
-	$sex = $_POST['sex'];
-	$citizenship = $_POST['citizenship'];
-	$spouse = $_POST['spouse'];
-	$spouseoccup = $_POST['spouseoccup'];
-	$noc1 = $_POST['noc1'];
-	$noc2 = $_POST['noc2'];
-	$noc3 = $_POST['noc3'];
-	$fathersname = $_POST['fathersname'];
-	$fatheroccup = $_POST['fatheroccup'];
-	$mothersname = $_POST['mothersname'];
-	$mothersoccup = $_POST['mothersoccup'];
-	$guardian = $_POST['guardian'];
-	$guardnum = $_POST['guardnum'];
-	$elementary= $_POST['elementary'];
-	$elementaryyg = $_POST['elementaryyg'];
-	$highschool = $_POST['highschool'];
-	$highschoolyg = $_POST['highschoolyg'];
-	$college = $_POST['college'];
-	$collegeyg = $_POST['collegeyg'];
-	$degree_received = $_POST['degreereceived'];
-	$specialskills = $_POST['specialskills'];
-	$workstatus = $_POST['workstatus'];
-	$workspecify = $_POST['workspecify'];
-	$validid = $_POST['validid'];
+	$cn = $_POST['cn'];
 	$password = $_POST['password'];
+
 
     
 
 			
-    $checkreg = mysqli_query($conn,"SELECT * FROM citizen WHERE email='$email' ");
+    $checkreg = mysqli_query($conn,"SELECT * FROM residents WHERE email='$email' ");
     $num_reg=mysqli_num_rows($checkreg);
 
 	 if($num_reg >= 1){
@@ -66,11 +41,7 @@ if (isset($_POST['reg'])){
 	if(in_array($fileActualExt, $allowed)){         
 
     	$fileNameNew = $fileName;
-		$insertreg = mysqli_query($conn,"INSERT INTO citizen VALUES('0','$fileNameNew','$name','$email','$address','$phonenumber',
-		'$date_of_birth', '$place_of_birth', '$cilstatus', '$religion', '$sex', '$citizenship', '$spouse', '$spouseoccup', '$noc1',
-		'$noc2', '$noc3', '$fathersname', '$fatheroccup', '$mothersname', '$mothersoccup', '$guardian', '$guardnum', '$elementary',
-		'$elementaryyg', '$highschool','$highschoolyg', '$college', '$collegeyg', '$degree_received', '$specialskills', '$workstatus',
-		'$workspecify','$validid','$password')");
+		$insertreg = mysqli_query($conn,"INSERT INTO residents VALUES('0', '$fn', '$email', '$gender', '$birthdate', '$address', '$cn', '$password')");
 
 		if ($insertreg == TRUE) {
 

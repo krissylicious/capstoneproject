@@ -16,7 +16,7 @@ if (isset($_POST['reg'])){
 	$password = $_POST['password'];
 
     
-
+  
 			
     $checkreg = mysqli_query($conn,"SELECT * FROM residents WHERE email='$email' ");
     $num_reg=mysqli_num_rows($checkreg);
@@ -40,8 +40,8 @@ if (isset($_POST['reg'])){
 		if(in_array($fileActualExt, $allowed)){         
 
     $fileNameNew = $fileName;
-		$insertreg = mysqli_query($conn,"INSERT INTO residents VALUES('0','$fn','$email', '$gender', '$birthdate', '$address', '$cn', 
-			'$password', '$fileNameNew')");
+	$insertreg = mysqli_query($conn,"INSERT INTO residents VALUES('0','$fn','$email', '$gender', '$birthdate', 
+		'$address', '$cn', '$password', '$fileNameNew')");
 
 		if ($insertreg == TRUE) {
 

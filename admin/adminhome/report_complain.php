@@ -57,6 +57,13 @@ session_start();
     <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
     <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+         crossorigin=""></script>   
     
     <link href="../assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     
@@ -77,7 +84,14 @@ session_start();
         .counter{
         padding:8px; 
         color:#ccc;
-        }</style>
+        }
+
+        #map {
+        height: 600px;  
+        width: 100%; 
+       }
+
+    </style>
     
 </head>
 
@@ -285,9 +299,9 @@ session_start();
                                 href="report_complain.php" aria-expanded="false"><i class="mdi me-2 mdi-chart-bar"></i><span
                                     class="hide-menu">Report/Complaint</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="analytics.php" aria-expanded="false"><i
-                                    class="mdi me-2 mdi-chart-line"></i><span class="hide-menu">Analytics</span></a>
-                        </li>
+                                href="Major_emergency.php" aria-expanded="false"><i class="mdi me-2 mdi-chart-bar"></i><span
+                                    class="hide-menu">Major Emergency</span></a></li>
+                       
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" data-bs-toggle="modal" data-bs-target="#myModal1"
                                 href="#" aria-expanded="false"><i
                                     class="mdi me-2 mdi-format-text"></i><span class="hide-menu">Complaint Title</span></a>
@@ -351,20 +365,35 @@ session_start();
             
             	<div class="Container-fluid">
             	 
-           			<div class="container p-5 my-5 bg-white  border border-5 table-responsive-sm" >
+           			<div class="container p-5 my-5 bg-white shadow  table-responsive-sm" >
            				
-							<span class="counter pull-right"><h2 style="color: #26c6da;">LIST OF COMPLAINTS</h2></span>
+							<span class="counter pull-right"><h2 style="color: #26c6da;">LIST OF COMPLAINTS</h2>
+
+                            </span>
+                            <div class="form-group pull-right ">
+                                                    <input type="text" class="search form-control" placeholder="What you looking for?">
+                                                </div>
+                                                <span class="counter pull-right"></span>
+
+
 							<table class="table table-hover table-bordered results">
+
 							  <thead>
+
 							    <tr>
 							      <th >Ref #</th>
 							      <th class="col-md-3 col-xs-3">Email</th>
 							      <th class="col-md-3 col-xs-3">Complaint_Title</th>
 							      <th class="col-md-3 col-xs-3">Complaint_Report</th>
+                                  <th class="col-md-3 col-xs-3">Contact Number</th>
 							      <th class="col-md-3 col-xs-3">Date</th>
 							      <th class="col-md-3 col-xs-3">Time</th>
 							      <th class="col-md-3 col-xs-3">Status</th>
-							      <th class="col-md-3 col-xs-3">Action</th>
+							      <th class="col-md-3 col-xs-3">Action 1</th>
+                                  <th class="col-md-3 col-xs-3">Action 2</th>
+
+
+
 							     
 							    </tr>
 							    
@@ -377,25 +406,30 @@ session_start();
 							    	 <tbody>
 
 							    	 	<?php
-							    	 	$getresidentcomplain = mysqli_query($conn, "SELECT * FROM resident_complain");
+							    	 	$getresidentcomplain = mysqli_query($conn, "SELECT * FROM resident_complain ORDER BY id DESC");
 
 							    	 	while ($rcomplains = mysqli_fetch_array($getresidentcomplain)) {
-							    	 		
-							    	 	
+							    	 	$lat = $rcomplains['mylat'];
+                                        $long = $rcomplains['mylong'];					    	 	
 							    	 	?>
 
 							    	<tr>
 							    	  <th scope="row"><?php echo $rcomplains['id'];?></th>
-								      <td><?php echo $rcomplains['name'];?></td>
+								      <td><?php echo sha1($rcomplains['email']);?></td>
+    
 								      <td><?php echo $rcomplains['complain_title'];?></td>
 								      <td><?php echo utf8_encode($rcomplains['complain_report']) ;?></td>
+                                      <td><?php echo $rcomplains['cn'];?></td>
 								      <td><?php echo $rcomplains['Date'];?></td>
 								      <td><?php echo $rcomplains['Time'];?></td>
 								      <td><?php echo $rcomplains['Status'];?></td>
+                                      <td>
+                                        <a href="report_complain_map.php?id=<?php echo $rcomplains['id']; ?>" style="font-size: 15px;"><i class="mdi me-2 mdi-map-marker-multiple " style="font-size: 20px; margin:20px;"></i>view location </a>
+                                        </td>
 								    
-								       	<td style="font-size: 20px; text-align: center; color:#26c6da;">
+								       	<td >
 
-								      	<a href="" data-bs-toggle="modal" data-bs-target="#B<?php echo $rcomplains['id'];?>"><i class="mdi me-2 mdi-pencil" >UPDATE</i></a>
+								      	<a href="" data-bs-toggle="modal" data-bs-target="#B<?php echo $rcomplains['id'];?>" style="font-size: 20px;"><i class="mdi me-2 mdi-pencil " style="font-size: 20px; margin:20px;"></i>Update</a>
 
 								      	 <!-- Update Action  -->
 <div class="modal" id="B<?php echo $rcomplains['id'];?>">
@@ -412,8 +446,14 @@ session_start();
       <div class="modal-body">
         <form action="process_update.php?id=<?php echo $rcomplains['id'];?>" Method="POST">
 
-        	<input type="text" class="form-control"  placeholder="" name="Status" value="<?php echo $rcomplains['Status'];?>" required>
-  
+        	
+  <select class="form-select" id="sel1" name="Status" >
+      <option >Status was <?php echo $rcomplains['Status'];?></option>
+      <option>Done</option>
+      <option>Pending</option>
+      <option>To be Assist</option>
+     
+    </select>
         
       </div>
 
@@ -430,7 +470,7 @@ session_start();
 								      </td>
 
 					
-								      	<!-- Update Complaint -->
+				<!-- Update Complaint -->
 <div class="modal" id="p<?php echo $complains['id'];?>">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -461,7 +501,9 @@ session_start();
   </div>
 </div>
 								      </td>
-								      	
+
+
+
 
 								  </tr>
 								  <?php

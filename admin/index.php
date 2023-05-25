@@ -68,8 +68,8 @@ border-bottom-right-radius: .3rem;
 
                   if($n >= 1){
                     $_SESSION['email']=$email;
-                    include '../citizen/userhomepage/phpSMS.php';
-                    sendSMS('+639168733698',rand(100000,999999));
+                   /* include '../citizen/userhomepage/phpSMS.php';
+                    sendSMS('+639168733698',rand(100000,999999)); */
                     ?>
                     <script>
                       alert("Your account is accepted!");
@@ -170,7 +170,7 @@ border-bottom-right-radius: .3rem;
       <div class="modal-body">
         <form action="index.php" method="POST">
         <label>Email/Phone Number</label>
-        <input type="text" class="form-control mt-3" placeholder="Enter your email/phone number" required> </br>
+        <input type="text" class="form-control mt-3" placeholder="Enter your email" required> </br>
         
         <input type="submit" class="btn btn-primary btn-block fa-lg bg-info text-start" value="Submit" name="submit">
         </form>

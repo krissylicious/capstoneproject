@@ -285,10 +285,11 @@ session_start();
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="report_complain.php" aria-expanded="false"><i class="mdi me-2 mdi-chart-bar"></i><span
                                     class="hide-menu">Report/Complaint</span></a></li>
+
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="analytics.php" aria-expanded="false"><i
-                                    class="mdi me-2 mdi-chart-line"></i><span class="hide-menu">Analytics</span></a>
-                        </li>
+                                href="Major_emergency.php" aria-expanded="false"><i class="mdi me-2 mdi-chart-bar"></i><span
+                                    class="hide-menu">Major Emergency</span></a></li>
+                        
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" data-bs-toggle="modal" data-bs-target="#myModal1"
                                 href="#" aria-expanded="false"><i
                                     class="mdi me-2 mdi-format-text"></i><span class="hide-menu">Complaint Title</span></a>
@@ -351,7 +352,7 @@ session_start();
             
             	<div class="Container-fluid">
             	 
-           			<div class="container p-5 my-5 bg-white  border border-5 table-responsive-sm" >
+           			<div class="container p-5 my-5 bg-white shadow  table-responsive-sm" >
            				
 							<span class="counter pull-right"></span>
 							<table class="table table-hover table-bordered results">
@@ -417,8 +418,8 @@ session_start();
 
 										      <!-- Modal footer -->
 										      <div class="modal-footer">
-										        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-										        <input type="submit"  class="btn btn-primary" value="Update" name="update2">
+										        <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
+										        <input type="submit"  class="btn btn-info text-white" value="Update" name="update2">
 										      </div>
 										      </form>
 

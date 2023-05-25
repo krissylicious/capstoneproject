@@ -13,6 +13,8 @@ session_start();
 
   $email =$_SESSION['email'];
 
+  
+
 
 
 
@@ -21,6 +23,7 @@ session_start();
     
 
     $fn = $row -> fn;
+    $cn = $row -> cn;
   
     
 
@@ -32,36 +35,8 @@ session_start();
 
  
   }
-  //for confirmation of emergency
-  if(isset($_POST['emergency'])){
-
-    
-    $password =$_POST['password'];
-
-
-    $getpass=mysqli_query($conn, "SELECT * FROM residents WHERE password='$password' AND email='$email'");
-
-    $n=mysqli_num_rows($getpass);
-
-    if($n >= 1){
-
-
-            ?>
-            <script>
-                alert("Password is Correct");
-                window.location.href="emergencybutton.php";
-            </script>
-            <?php
-    }else{
-        ?>
-        <script>
-            alert("Password is incorrect!/nPlease try again!");
-            window.location.href="emergencybutton.php";
-
-        </script>
-        <?php
-    }
-  }
+  
+  
    
  ?>
 
@@ -104,7 +79,14 @@ session_start();
         .counter{
         padding:8px; 
         color:#ccc;
-        }</style>
+        }
+
+        #map {
+        height: 400px;  
+        width: 100%; 
+       }
+
+    </style>
     
 </head>
 
@@ -117,13 +99,13 @@ session_start();
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         
         <!-- Topbar header - style you can find in pages.scss -->
-       
+      
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark fixed-top bg-info">
                 <div class="navbar-header" data-logobg="skin6">
                     
                     <a class="navbar-brand ms-4" href="userhomepage.php">
-                        <!-- Logo icon -->
+                       
                         <b class="logo-icon">
                            
                             <img src="img/logo4.png" width="100%" class="dark-logo" />
@@ -145,11 +127,11 @@ session_start();
                         </li>
                     </ul>
                     
-                    <!-- toggle and nav items -->
+                   
                    
                     <ul class="navbar-nav me-auto mt-md-0 ">
                        
-                        <!-- Search -->
+                        
                        
                         <li class="nav-item search-box">
                             <a class="nav-link text-muted" href="javascript:void(0)"><i class="ti-search"></i></a>
@@ -160,11 +142,11 @@ session_start();
                     </ul>
 
                    
-                    <!-- Right side toggle and nav items -->
+                   
                    
                     <ul class="navbar-nav">
                         
-                        <!-- User profile and search -->
+                        
                         
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#"  aria-expanded="false">
@@ -176,10 +158,10 @@ session_start();
                 </div>
             </nav>
         </header>
+    
         
         
-        
-        <aside class="left-sidebar" data-sidebarbg="skin6">
+        <aside class="left-sidebar" data-sidebarbg="skin6" >
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
@@ -191,23 +173,23 @@ session_start();
                                     class="hide-menu">Dashboard</span></a>
                          </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link "
-                                href="userreport.php" aria-expanded="false">
+                        <li class="sidebar-item"> <a onclick="getLocation()" id="demo" class="sidebar-link waves-effect waves-dark sidebar-link active"
+                                href="#"  aria-expanded="false">
                                 <i class="mdi me-2 mdi-comment-account"></i><span class="hide-menu">Report</span></a>
                         </li>
 
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" 
-                            data-bs-toggle="modal" data-bs-target="#myModal2"
-                                href="#" aria-expanded="false"><i class="mdi me-2 mdi-checkbox-multiple-blank"></i><span
+                            
+                                href="emergencybutton.php" aria-expanded="false"><i class="mdi me-2 mdi-checkbox-multiple-blank"></i><span
                                     class="hide-menu">Emergency buttons</span></a></li>
                          
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="history.php" aria-expanded="false"><i
                                     class="mdi me-2 mdi-history"></i><span class="hide-menu">History</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" data-bs-toggle="modal" data-bs-target="#myModal"
-                                href="#" aria-expanded="false"><i
-                                    class="mdi me-2 mdi-account-edit"></i><span class="hide-menu">Update Account</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                                href="profile.php" aria-expanded="false"><i
+                                    class="mdi me-2 mdi-account-edit"></i><span class="hide-menu">Profile</span></a></li>
                         
                         
                     </ul>
@@ -263,19 +245,23 @@ session_start();
                                        
                                     </div>
                                 </div>
-            
+           
                 <div class="Container-fluid">
-                 
-                    <div class="container p-5 my-5 bg-white  border border-5  mb-xl-5" >
-                        
-                                     
-                        <form action="userprocess.php" method="POST">
+                  
+                    <div class="container p-5 my-5 bg-white    mb-xl-5  shadow p-3 mb-5  rounded" >
+                       
+                            <h4>WRITE YOUR COMPLAINTS HERE</h4>
+                                                <div class="row">   
+
+                        <div class="col-6 ">
+                        <form action="userprocess.php" method="POST" enctype="multipart/form-data">
 
                             <label for="sel1" class="form-label">Select Category (select one):</label>
                                 <select class="form-select" id="sel1" name="sellist1" required>
                                     <option value=""></option>
                                     <?php
-
+                                     $lat = $_GET['lat'];
+                                     $long = $_GET['long'];
                                     $get_complains = mysqli_query($conn, "SELECT * FROM complain_report ");
 
                                     while($_complains=mysqli_fetch_array($get_complains)){
@@ -290,66 +276,63 @@ session_start();
                             <div class="mb-3 mt-3">
                               <label for="comment">Complaint</label>
                               <textarea class="form-control" rows="5" name="complain_report"></textarea>
-                              <input type="hidden" name="name" value="<?php echo $validid;?>">
+                              <input type="hidden" name="cn" value="<?php echo $cn;?>">
                             </div>
+
+                            <div class="mb-3 mt-3">
+                              <label for="comment">Attach</label>
+                              <input type="file" name="doc_type" class="form-control"   accept=".png, .gif, .jpeg, .jpg, .webp, .jfif ">
+                              
+                            </div>
+                            
+                            <input type="hidden" name="email" value="<?php echo $email;?>">
+                            <input type="hidden" name="lat" value="<?php echo $lat; ?>">
+                            <input type="hidden" name="long" value="<?php echo $long; ?>">
                             <input type="submit" class="btn btn-primary " name="complain1" value="SEND">
                           </form>
-                            
-                        </div>
-                
+                            </div>
 
+
+                            <div class="col-6">
+                                 
+                                 <div id="map">
+                                     
+
+                                 </div>
+                        
+                        
+                            <script >
+                            // Initialize and add the map
+                                function initMap() {
+                          
+                          var uluru = {lat:<?php echo $lat;?>, lng: <?php echo $long;?>};
+                          
+                          // The map, centered at Uluru
+                          var map = new google.maps.Map(
+                              document.getElementById('map'), {zoom: 18, center: uluru});
+                          // The marker, positioned at Uluru
+                          var marker = new google.maps.Marker({position: uluru, map: map});
+                        }
+                            </script>
+                           
+                            <script async defer
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAecRZLycBCluzGK0USG2NK6ncrdoCYFek&callback=initMap">
+                            </script>
+
+
+                            </div>
+                        </div>
+
+                      
+                     
+                       
+                       
           
 
                 
                     
-                <!-- The Modal -->
-<div class="modal fade" id="myModal2">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">CONFIRMATION</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="mb-3 mt-3">
-      <form action="userhomepage.php" method="POST">
-    <label for="password" class="form-label">Password:</label>
-    <input id="myInput87" type="password" class="form-control"  placeholder="Enter password" name="password"
-    required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one UPPERCASE 
-                   and lowercase letter, and at least 8 or more characters.">
-                    
-                    
-    <input type="checkbox" onclick="myFunction()">Show Password
-
-                   <script>
-                  function myFunction() {
-                    var x = document.getElementById("myInput87");
-                    if (x.type === "password") {
-                      x.type = "text";
-                    } else {
-                      x.type = "password";
-                    }
-                  }
-                  </script>
-
-  </div>
-                
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-         <input type="submit" class="btn btn-info text-white" value="SUBMIT" name="emergency">
-      </div>
-  </form>
-    </div>
-  </div>
+              
 </div>
-       
     </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -383,6 +366,9 @@ session_start();
        
                   <div class="card">
                     <?php
+
+                        
+
                             $getresidentsdetails = mysqli_query($conn, "SELECT * FROM residents WHERE email='$email' ");
                                 while ($show = mysqli_fetch_array($getresidentsdetails)){
  
@@ -406,7 +392,8 @@ session_start();
                                                 id="example-email">
                                         </div>
                                     </div>
-                                    
+                                     
+
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Phone No</label>
                                         <div class="col-md-12">
@@ -437,6 +424,8 @@ session_start();
                                           
                                         </div>
                                     </div>
+
+
                                     
                         </div>
                     </div>
@@ -538,7 +527,23 @@ session_start();
 });</script>
 
 
+                                        <script>
+                                        var x = document.getElementById("demo");
+
+                                        function getLocation() {
+                                          if (navigator.geolocation) {
+                                            navigator.geolocation.watchPosition(showPosition);
+                                          } else { 
+                                            x.innerHTML = "Geolocation is not supported by this browser.";
+                                          }
+                                        }
                                             
+                                        function showPosition(position) {
+                                            x.innerHTML="Latitude: " + position.coords.latitude + 
+                                            "<br>Longitude: " + position.coords.longitude;
+                                            window.location.href="userreport.php?lat=" + position.coords.latitude + "&&long=" + position.coords.longitude;
+                                        }
+                                        </script>                                        
 
 
 
